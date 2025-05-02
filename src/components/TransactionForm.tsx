@@ -45,17 +45,55 @@ const TransactionForm = () => {
 
                 <div>
                     <label className="block text-sm font-medium">Valor</label>
-                    <input 
+                    <input
                         type="number"
                         step='0.01'
                         {...register('value', { valueAsNumber: true })}
-                        className="w-full p-2 rounded bg-zinc-100 dark:bg-zinc-700" 
+                        className="w-full p-2 rounded bg-zinc-100 dark:bg-zinc-700"
                     />
                     {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
                 </div>
             </div>
+
+            <div>
+                <label className="block text-sm font-medium">Descrição</label>
+
+                <input
+                    type="text"
+                    {...register('description')}
+                    className="w-full p-2 rounded bg-zinc-100 dark:bg-zinc-700"
+                />
+                {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
+            </div>
+
+            <div>
+                <label className="block text-sm font-medium">Categoria</label>
+                <input
+                    type="text"
+                    {...register('category')}
+                    className="w-full p-2 rounded bg-zinc-100 dark:bg-zinc-700"
+                />
+                {errors.category && <p className="text-red-500 text-sm">{errors.category.message}</p>}
+            </div>
+
+            <div>
+                <label className="block text-sm font-medium">Data</label>
+                <input
+                    type="text"
+                    {...register('date')}
+                    className="w-full p-2 rounded bg-zinc-100 dark:bg-zinc-700"
+                />
+                {errors.date && <p className="text-red-500 text-sm">{errors.date.message}</p>}
+            </div>
+
+            <button
+                type="submit"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded shadow"
+            >
+                Adicionar Transação
+            </button>
         </form>
-    )
+    );
 };
 
 export default TransactionForm;

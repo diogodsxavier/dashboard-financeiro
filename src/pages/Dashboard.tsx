@@ -1,6 +1,72 @@
 // import React from "react";
 
+import { useEffect, useState } from "react";
+import TransactionForm from "../components/TransactionForm";
+import { Transaction } from "../types/transaction";
+
+const STORAGE_KEY = '@painel-financeiro:transactions';
+
 const Dashboard = () => {
+    const [transactions, setTransactions] = useState<Transaction[]>([]);
+
+    //  Carrega as transações do localStorage quando o componente é montado
+    useEffect(() => {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) setTransactions(JSON.parse(stored));
+    }, []);
+
+    // Persiste sempre que mudar transactions
+    useEffect(() => {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions));
+    }, [transactions]);
+
+
+    // Continuar daqui ......
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     return (
         <main className="p-4 md:p-8 max-w-6x1 mx-auto space-y-6">
             {/* Título */}
@@ -30,7 +96,7 @@ const Dashboard = () => {
                 {/* Componente TransactionForm virá aqui */}
                 <div className="bg-white dark:bg-zinc-800 rounded-2xl shadow p-4">
                     <h2 className="text-lg font-semibold mb-2">Nova Transação</h2>
-                    <p className="text-zinc-400 text-sm">Formulário será adicionado aqui</p>
+                    <TransactionForm />
                 </div>
             </section>
 
