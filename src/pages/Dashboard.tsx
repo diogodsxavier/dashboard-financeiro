@@ -1,8 +1,9 @@
-// import React from "react";
-
 import { useEffect, useState } from "react";
 import TransactionForm from "../components/TransactionForm";
 import { Transaction } from "../types/transaction";
+import SummaryCars from "../components/SummaryCard";
+import TransactionList from "../components/TransactionList";
+import PieChart from "../components/PieChart";
 
 const STORAGE_KEY = '@painel-financeiro:transactions';
 
@@ -20,75 +21,45 @@ const Dashboard = () => {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions));
     }, [transactions]);
 
-
-    // Continuar daqui ......
-
-
-
+    const handleAdd = (tx: Transaction) => {
+        setTransactions((prev) => [tx, ...prev]);
+    };
 
 
+    // Cálculo dos resumos
+    const entradas = transactions
+        .filter(t => t.type === 'entrada')
+        .reduce((sum, t) => sum + t.value, 0);
 
+    const saidas = transactions
+        .filter(t => t.type === 'saida')
+        .reduce((sum, t) => sum + t.value, 0);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    const saldo = entradas - saidas;
 
     return (
         <main className="p-4 md:p-8 max-w-6x1 mx-auto space-y-6">
             {/* Título */}
             <h1 className="text-2x1 font-bold">Painel Financeiro</h1>
 
-            {/* Cards de resumo */}
+            {/* Summary Cards */}
+
             <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {/* Componentes SummaryCard virão aqui */}
-                <div className="bg-white dark:bg-zinc-800 rounded-2xl shadow p-4">
-                    <p className="text-sm text-zinc-500">Entradas</p>
-                    <p className="text-xl font-bold text-green-500">R$ 0,00</p>
-                </div>
-
-                <div className="bg-white dark:bg-zinc-800 rounded-2xl shadow p-4">
-                    <p className="text-sm text-zinc-500">Saídas</p>
-                    <p className="text-xl font-bold text-red-500">R$ 0,00</p>
-                </div>
-
-                <div className="bg-white dark:bg-zinc-800 rounded-2xl shadow p-4">
-                    <p className="text-sm text-zinc-500">Saldo</p>
-                    <p className="text-xl font-bold">R$ 0,00</p>
-                </div>
+                <SummaryCars
+                    title='Entradas'
+                    amount={entradas}
+                    variant='income'
+                />
+                <SummaryCars
+                    title='Saídas'
+                    amount={saidas}
+                    variant='expense'
+                />
+                <SummaryCars
+                    title='Saldos'
+                    amount={saldo}
+                    variant='total'
+                />
             </section>
 
             {/* Formulário de transações */}
@@ -96,7 +67,7 @@ const Dashboard = () => {
                 {/* Componente TransactionForm virá aqui */}
                 <div className="bg-white dark:bg-zinc-800 rounded-2xl shadow p-4">
                     <h2 className="text-lg font-semibold mb-2">Nova Transação</h2>
-                    <TransactionForm />
+                    <TransactionForm onAddTransaction={handleAdd} />
                 </div>
             </section>
 
@@ -105,15 +76,16 @@ const Dashboard = () => {
                 <h2 className="text-lg font-semibold mb-2">Transações</h2>
                 {/* Componente TransactionList virá aqui */}
                 <div className="bg-white dark:bg-zinc-800 rounded-2xl shadow p-4">
-                    <p className="text-zinc-400 text-sm">Lista de transações será renderizada aqui</p>
+                    <TransactionList transaction={transactions} />
                 </div>
             </section>
 
+            {/* Gráfico de pizza */}
             <section>
                 <h2 className="text-lg font-semibold mb-2">Distribuição por categoria</h2>
                 {/* Componente PieChart virá aqui */}
                 <div className="bg-white dark:bg-zinc-800 rounded-2xl shadow p-4">
-                    <p className="text-zinc-400 text-sm">Gráfico de pizza será exibido aqui</p>
+                    <PieChart transactions={transactions} />
                 </div>
             </section>
         </main>

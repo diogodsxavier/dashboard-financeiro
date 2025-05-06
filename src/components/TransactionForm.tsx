@@ -2,6 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { v4 as uuidv4 } from "uuid";
+import { Transaction } from "../types/transaction";
+import React from "react";
 
 const formSchema = z.object({
     type: z.enum(["entrada", "saida"]),
@@ -13,7 +15,21 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-const TransactionForm = () => {
+interface TransactionFormProps {
+    onAddTransaction: (tx: Transaction) => void;
+}
+
+const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) => {
+    const onSubmit = (data: FormData) => {
+        const transaction = {
+            id: uuidv4(),
+            ...data,
+        };
+        onAddTransaction(transaction)
+        reset();
+    };
+
+
     const {
         register,
         handleSubmit,
@@ -22,15 +38,6 @@ const TransactionForm = () => {
     } = useForm<FormData>({
         resolver: zodResolver(formSchema),
     });
-    const onSubmit = (data: FormData) => {
-        const transaction = {
-            id: uuidv4(),
-            ...data,
-        };
-
-        console.log('Transação cadastrada:', transaction);
-        reset();
-    };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
