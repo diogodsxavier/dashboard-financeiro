@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import TransactionForm from "../components/TransactionForm";
 import { Transaction } from "../types/transaction";
-import SummaryCars from "../components/SummaryCard";
+// import SummaryCars from "../components/SummaryCard";
 import TransactionList from "../components/TransactionList";
 import PieChart from "../components/PieChart";
 
@@ -11,10 +11,10 @@ const Dashboard = () => {
     const [transactions, setTransactions] = useState<Transaction[]>([]);
 
     //  Carrega as transações do localStorage quando o componente é montado
-    useEffect(() => {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored) setTransactions(JSON.parse(stored));
-    }, []);
+    // useEffect(() => {
+    //     const stored = localStorage.getItem(STORAGE_KEY);
+    //     if (stored) setTransactions(JSON.parse(stored));
+    // }, []);
 
     // Persiste sempre que mudar transactions
     useEffect(() => {
@@ -27,15 +27,15 @@ const Dashboard = () => {
 
 
     // Cálculo dos resumos
-    const entradas = transactions
-        .filter(t => t.type === 'entrada')
-        .reduce((sum, t) => sum + t.value, 0);
+    // const entradas = transactions
+    //     .filter(t => t.type === 'entrada')
+    //     .reduce((sum, t) => sum + t.value, 0);
 
-    const saidas = transactions
-        .filter(t => t.type === 'saida')
-        .reduce((sum, t) => sum + t.value, 0);
+    // const saidas = transactions
+    //     .filter(t => t.type === 'saida')
+    //     .reduce((sum, t) => sum + t.value, 0);
 
-    const saldo = entradas - saidas;
+    // const saldo = entradas - saidas;
 
     return (
         <main className="p-4 md:p-8 max-w-6x1 mx-auto space-y-6">
@@ -44,7 +44,7 @@ const Dashboard = () => {
 
             {/* Summary Cards */}
 
-            <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {/* <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <SummaryCars
                     title='Entradas'
                     amount={entradas}
@@ -60,7 +60,7 @@ const Dashboard = () => {
                     amount={saldo}
                     variant='total'
                 />
-            </section>
+            </section> */}
 
             {/* Formulário de transações */}
             <section>
@@ -76,7 +76,7 @@ const Dashboard = () => {
                 <h2 className="text-lg font-semibold mb-2">Transações</h2>
                 {/* Componente TransactionList virá aqui */}
                 <div className="bg-white dark:bg-zinc-800 rounded-2xl shadow p-4">
-                    <TransactionList transaction={transactions} />
+                    <TransactionList transactions={transactions} />
                 </div>
             </section>
 

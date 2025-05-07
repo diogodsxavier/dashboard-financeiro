@@ -23,14 +23,20 @@ const TransactionList: React.FC<Props> = ({ transactions }) => {
             <tbody>
                 {transactions.map((t) => (
                     <tr key={t.id} className="border-t dark:border-zinc-700">
-
-                        {/* CONTINUAR DAQUI..... */}
-
+                        <td className="p-2">{t.description}</td>
+                        <td className="p-2">{t.category}</td>
+                        <td
+                            className={`p-2 font-semibold ${t.type === 'entrada' ? 'text-green-500' : 'text-red-500'
+                                }`}
+                        >
+                            {t.type === 'entrada' ? '+' : '-'} R$ {t.value.toFixed(2)}
+                        </td>
+                        <td className="p-2">{new Date(t.date).toLocaleDateString()}</td>
                     </tr>
                 ))}
             </tbody>
         </table>
-    )
-}
+    );
+};
 
 export default TransactionList;
