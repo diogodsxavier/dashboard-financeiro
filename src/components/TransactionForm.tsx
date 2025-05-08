@@ -86,7 +86,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
             <div>
                 <label className="block text-sm font-medium">Data</label>
                 <input
-                    type="text"
+                    type="date"
                     {...register('date')}
                     className="w-full p-2 rounded bg-zinc-100 dark:bg-zinc-700"
                 />

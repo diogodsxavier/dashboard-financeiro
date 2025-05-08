@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import TransactionForm from "../components/TransactionForm";
 import { Transaction } from "../types/transaction";
-// import SummaryCars from "../components/SummaryCard";
+import SummaryCars from "../components/SummaryCard";
 import TransactionList from "../components/TransactionList";
 import PieChart from "../components/PieChart";
 
@@ -10,6 +10,17 @@ const STORAGE_KEY = '@painel-financeiro:transactions';
 const Dashboard = () => {
     const [transactions, setTransactions] = useState<Transaction[]>([]);
 
+
+
+
+
+    // Resolver o problema abaixo amanhã
+
+
+
+
+
+
     //  Carrega as transações do localStorage quando o componente é montado
     // useEffect(() => {
     //     const stored = localStorage.getItem(STORAGE_KEY);
@@ -17,6 +28,7 @@ const Dashboard = () => {
     // }, []);
 
     // Persiste sempre que mudar transactions
+
     useEffect(() => {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions));
     }, [transactions]);
@@ -27,15 +39,15 @@ const Dashboard = () => {
 
 
     // Cálculo dos resumos
-    // const entradas = transactions
-    //     .filter(t => t.type === 'entrada')
-    //     .reduce((sum, t) => sum + t.value, 0);
+    const entradas = transactions
+        .filter(t => t.type === 'entrada')
+        .reduce((sum, t) => sum + t.value, 0);
 
-    // const saidas = transactions
-    //     .filter(t => t.type === 'saida')
-    //     .reduce((sum, t) => sum + t.value, 0);
+    const saidas = transactions
+        .filter(t => t.type === 'saida')
+        .reduce((sum, t) => sum + t.value, 0);
 
-    // const saldo = entradas - saidas;
+    const saldo = entradas - saidas;
 
     return (
         <main className="p-4 md:p-8 max-w-6x1 mx-auto space-y-6">
@@ -44,7 +56,7 @@ const Dashboard = () => {
 
             {/* Summary Cards */}
 
-            {/* <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <SummaryCars
                     title='Entradas'
                     amount={entradas}
@@ -60,7 +72,7 @@ const Dashboard = () => {
                     amount={saldo}
                     variant='total'
                 />
-            </section> */}
+            </section>
 
             {/* Formulário de transações */}
             <section>
