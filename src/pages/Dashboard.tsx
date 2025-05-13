@@ -3,7 +3,7 @@ import TransactionForm from "../components/TransactionForm";
 import { Transaction } from "../types/transaction";
 import SummaryCars from "../components/SummaryCard";
 import TransactionList from "../components/TransactionList";
-import PieChart from "../components/PieChart";
+import PieChartComponent from "../components/PieChart";
 
 const STORAGE_KEY = '@painel-financeiro:transactions';
 
@@ -12,25 +12,29 @@ const Dashboard = () => {
 
 
 
-
-
-    // Resolver o problema abaixo amanhã
-
-
-
-
-
-
     //  Carrega as transações do localStorage quando o componente é montado
-    // useEffect(() => {
-    //     const stored = localStorage.getItem(STORAGE_KEY);
-    //     if (stored) setTransactions(JSON.parse(stored));
-    // }, []);
+    useEffect(() => {
+        const stored = localStorage.getItem(STORAGE_KEY);
+
+        try {
+            if (stored) {
+                const parsed = JSON.parse(stored);
+                if (Array.isArray(parsed)) {
+                    setTransactions(parsed);
+                }
+            }
+        } catch (e) {
+            console.error('Erro ao carregar transações do localStorage', e);
+
+        }
+    }, []);
 
     // Persiste sempre que mudar transactions
 
     useEffect(() => {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions));
+        if (transactions.length > 0) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions));
+        }
     }, [transactions]);
 
     const handleAdd = (tx: Transaction) => {
@@ -88,6 +92,18 @@ const Dashboard = () => {
                 <h2 className="text-lg font-semibold mb-2">Transações</h2>
                 {/* Componente TransactionList virá aqui */}
                 <div className="bg-white dark:bg-zinc-800 rounded-2xl shadow p-4">
+
+
+
+
+
+
+                {/* CONTINUAR DAQUI AMANHÃ */}
+
+
+
+
+
                     <TransactionList transactions={transactions} />
                 </div>
             </section>
@@ -97,7 +113,7 @@ const Dashboard = () => {
                 <h2 className="text-lg font-semibold mb-2">Distribuição por categoria</h2>
                 {/* Componente PieChart virá aqui */}
                 <div className="bg-white dark:bg-zinc-800 rounded-2xl shadow p-4">
-                    <PieChart transactions={transactions} />
+                    <PieChartComponent key={transactions.length} transactions={transactions} />
                 </div>
             </section>
         </main>

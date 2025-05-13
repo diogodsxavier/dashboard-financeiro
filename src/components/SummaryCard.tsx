@@ -22,7 +22,7 @@ const SummaryCard: React.FC<SummaryCarsProps> = ({ title, amount, variant }) => 
             <h3 className="text-sm font-medium">{title}</h3>
             <p className="text-xl font-bold mt-2">
                 {isIncome && "+"}
-                {isExpense && "-"}R$ {amount.toFixed(2).replace(".", ",")}
+                {isExpense && "-"}R$ {amount.toFixed(2)}
             </p>
         </div>
     );

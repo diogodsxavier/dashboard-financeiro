@@ -58,7 +58,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
                         {...register('value', { valueAsNumber: true })}
                         className="w-full p-2 rounded bg-zinc-100 dark:bg-zinc-700"
                     />
-                    {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
+                    {errors.value && <p className="text-red-500 text-sm">{errors.value.message}</p>}
                 </div>
             </div>
 
@@ -70,7 +70,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
                     {...register('description')}
                     className="w-full p-2 rounded bg-zinc-100 dark:bg-zinc-700"
                 />
-                {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
+                {errors.value && <p className="text-red-500 text-sm">{errors.value.message}</p>}
             </div>
 
             <div>
