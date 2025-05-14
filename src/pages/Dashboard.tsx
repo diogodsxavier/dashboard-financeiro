@@ -10,8 +10,6 @@ const STORAGE_KEY = '@painel-financeiro:transactions';
 const Dashboard = () => {
     const [transactions, setTransactions] = useState<Transaction[]>([]);
 
-
-
     //  Carrega as transações do localStorage quando o componente é montado
     useEffect(() => {
         const stored = localStorage.getItem(STORAGE_KEY);
@@ -92,18 +90,6 @@ const Dashboard = () => {
                 <h2 className="text-lg font-semibold mb-2">Transações</h2>
                 {/* Componente TransactionList virá aqui */}
                 <div className="bg-white dark:bg-zinc-800 rounded-2xl shadow p-4">
-
-
-
-
-
-
-                {/* CONTINUAR DAQUI AMANHÃ */}
-
-
-
-
-
                     <TransactionList transactions={transactions} />
                 </div>
             </section>
