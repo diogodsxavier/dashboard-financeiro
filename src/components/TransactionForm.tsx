@@ -104,3 +104,5 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
 };
 
 export default TransactionForm;
+
+console.log('olá mundo!');
